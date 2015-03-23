@@ -1,0 +1,113 @@
+<% first_day = @month.month.since(Date.today).at_beginning_of_month %>
+<% d = 0 %>
+
+<div class="page-header">
+  <%= link_to new_assignment_path, :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-plus"></span>
+    New Assignment
+  <% end %>
+  <h1><%= first_day.strftime("%B") %></h1>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Sun</th>
+        <th>Mon</th>
+        <th>Tus</th>
+        <th>Wed</th>
+        <th>Thu</th>
+        <th>Fri</th>
+        <th>Sat</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% first_day.wday.times do %>
+        <td></td>
+      <% end %>
+      <% (7-first_day.wday).times do %>
+        <td>
+          <%= (first_day + d.days).day %>
+          <% @assignments.each do |assignment| %>
+            <% if assignment.due_date.day == (first_day + d.days).day && assignment.due_date.month == first_day.month %>
+              <p><%= link_to assignment.title, assignment %></p>
+            <% end %>
+          <% end %>
+        </td>
+        <% d += 1 %>
+      <% end %>
+    </tbody>
+    <% while first_day.month == (first_day + d.days).month %>
+      <tbody>
+        <% 7.times do %>
+          <% if first_day.month != (first_day + d.days).month %>
+            <td></td>
+            <% d += 1 %>
+          <% else %>
+            <td>
+              <%= (first_day + d.days).day %>
+              <% @assignments.each do |assignment| %>
+                <% if assignment.due_date.day == (first_day + d.days).day && assignment.due_date.month == first_day.month %>
+                  <p><%= link_to assignment.title, assignment %></p>
+                <% end %>
+              <% end %>
+            </td>
+            <% d += 1 %>
+          <% end %>
+        <% end %>
+      </tbody>
+    <% end %>
+  </table>
+</div>
+<div>
+  <%= link_to january_assignments_path, :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-calendar"></span>
+    January
+  <% end %>
+  <%= link_to february_assignments_path, :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-calendar"></span>
+    February
+  <% end %>
+  <%= link_to march_assignments_path, :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-calendar"></span>
+    March
+  <% end %>
+  <%= link_to april_assignments_path, :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-calendar"></span>
+    April
+  <% end %>
+  <%= link_to may_assignments_path, :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-calendar"></span>
+    May
+  <% end %>
+  <%= link_to june_assignments_path, :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-calendar"></span>
+    June
+  <% end %>
+  <%= link_to july_assignments_path, :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-calendar"></span>
+    July
+  <% end %>
+  <%= link_to august_assignments_path, :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-calendar"></span>
+    August
+  <% end %>
+  <%= link_to september_assignments_path, :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-calendar"></span>
+    September
+  <% end %>
+  <%= link_to october_assignments_path, :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-calendar"></span>
+    October
+  <% end %>
+  <%= link_to november_assignments_path, :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-calendar"></span>
+    November
+  <% end %>
+  <%= link_to december_assignments_path, :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-calendar"></span>
+    December
+  <% end %>
+</div>
